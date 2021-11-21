@@ -7,9 +7,9 @@ class CurrentWeather(
     val weather: List<WeatherObj>,
     val main: MainObj,
     val visibility: Int,
-    val wind: WindObj,
-    val rain: RainObj,
-    val clouds: CloudsObj,
+    val wind: WindObj?,
+    val rain: RainObj?,
+    val clouds: CloudsObj?,
     val city: String
 )
 

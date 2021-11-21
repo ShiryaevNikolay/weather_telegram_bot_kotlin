@@ -6,6 +6,8 @@ import com.github.kotlintelegrambot.dispatch
 import com.github.kotlintelegrambot.dispatcher.command
 import com.github.kotlintelegrambot.entities.ChatId
 import com.github.kotlintelegrambot.network.fold
+import domain.CurrentWeather
+import io.reactivex.rxjava3.schedulers.Schedulers
 import service.repository.WeatherRepository
 
 /**
@@ -21,19 +23,36 @@ class WeatherBot(
             command("start") {
                 val result = bot.sendMessage(
                     chatId = ChatId.fromId(message.chat.id),
-                    text = "Hello, Dagger2!"
+                    text = "Hello here!"
                 )
-                result.fold({
-                    // TODO: сделать что-нибудь с response
+                getCurrentWeather({ currentWeather ->
+                    println("Попали сюда")
                 }, {
-                    // TODO: что-то сделать при ошибке
+                    println("Произошла ошибка :(")
                 })
+//                result.fold({
+//                    print(data)
+//                    // TODO: сделать что-нибудь с response
+//                }, {
+//                    print(it)
+//                    // TODO: что-то сделать при ошибке
+//                })
             }
         }
     }
 
     init {
         bot.startPolling()
+    }
+
+    private fun getCurrentWeather(
+        onSuccess: ((CurrentWeather) -> Unit)? = null,
+        onError: ((Throwable) -> Unit)? = null
+    ) {
+        weatherRepository.getCurrentWeather()
+            .subscribeOn(Schedulers.io())
+            .observeOn(Schedulers.single())
+            .subscribe(onSuccess, onError)
     }
 
     companion object {

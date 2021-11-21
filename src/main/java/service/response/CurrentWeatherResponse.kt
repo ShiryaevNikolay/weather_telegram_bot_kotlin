@@ -13,11 +13,11 @@ class CurrentWeatherResponse(
     @SerializedName("visibility")
     val visibility: Int,
     @SerializedName("wind")
-    val wind: WindEntity,
+    val wind: WindEntity?,
     @SerializedName("rain")
-    val rain: RainEntity,
+    val rain: RainEntity?,
     @SerializedName("clouds")
-    val clouds: CloudsEntity,
+    val clouds: CloudsEntity?,
     @SerializedName("name")
     val city: String
 )

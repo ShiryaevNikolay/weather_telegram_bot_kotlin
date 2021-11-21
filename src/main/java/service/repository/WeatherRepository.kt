@@ -25,9 +25,9 @@ class WeatherRepository @Inject constructor(
             weather = weather.map { it.mapToDomain() },
             main = main.mapToDomain(),
             visibility = visibility,
-            wind = wind.mapToDomain(),
-            rain = rain.mapToDomain(),
-            clouds = clouds.mapToDomain(),
+            wind = wind?.mapToDomain(),
+            rain = rain?.mapToDomain(),
+            clouds = clouds?.mapToDomain(),
             city = city
         )
     }
