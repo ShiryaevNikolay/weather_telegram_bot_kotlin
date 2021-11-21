@@ -2,6 +2,7 @@ plugins {
     id 'org.jetbrains.kotlin.jvm' version '1.6.0'
     id 'java'
 }
+apply plugin: 'kotlin-kapt'
 
 group 'ru.shiryaev.telegram.bot'
 version '1.0-SNAPSHOT'
@@ -11,13 +12,23 @@ repositories {
     maven { url "https://jitpack.io" }
 }
 
+ext {
+    dagger_version = '2.40.1'
+}
+
 dependencies {
     implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.6.0'
     implementation 'io.github.kotlin-telegram-bot.kotlin-telegram-bot:telegram:6.0.6'
+
+    // RxJava3
     implementation "io.reactivex.rxjava3:rxjava:3.1.2"
 
-    testImplementation 'org.junit.jupiter:junit-jupiter-service.api:5.8.1'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+    // Dagger
+    implementation "com.google.dagger:dagger:$dagger_version"
+    kapt "com.google.dagger:dagger-compiler:$dagger_version"
+
+//    testImplementation 'org.junit.jupiter:junit-jupiter-service.api:5.8.1'
+//    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
 }
 
 test {

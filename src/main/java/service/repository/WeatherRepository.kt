@@ -4,11 +4,12 @@ import domain.*
 import io.reactivex.rxjava3.core.Single
 import service.api.WeatherApi
 import service.response.*
+import javax.inject.Inject
 
 /**
  * Репозиторий для работы с апи прогноза погоды
  */
-class WeatherRepository(
+class WeatherRepository @Inject constructor(
     private val weatherApi: WeatherApi
 ) {
 
