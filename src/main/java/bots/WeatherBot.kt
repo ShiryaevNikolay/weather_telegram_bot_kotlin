@@ -15,25 +15,24 @@ class WeatherBot(
     private val weatherRepository: WeatherRepository
 ) {
 
-    private val bot: Bot
-
-    init {
-        bot = bot {
-            token = TOKEN
-            dispatch {
-                command("start") {
-                    val result = bot.sendMessage(
-                        chatId = ChatId.fromId(message.chat.id),
-                        text = "Hello, Dagger2!"
-                    )
-                    result.fold({
-                        // TODO: сделать что-нибудь с response
-                    }, {
-                        // TODO: что-то сделать при ошибке
-                    })
-                }
+    private val bot: Bot = bot {
+        token = TOKEN
+        dispatch {
+            command("start") {
+                val result = bot.sendMessage(
+                    chatId = ChatId.fromId(message.chat.id),
+                    text = "Hello, Dagger2!"
+                )
+                result.fold({
+                    // TODO: сделать что-нибудь с response
+                }, {
+                    // TODO: что-то сделать при ошибке
+                })
             }
         }
+    }
+
+    init {
         bot.startPolling()
     }
 
