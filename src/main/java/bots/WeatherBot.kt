@@ -30,8 +30,9 @@ class WeatherBot(
                     chatId = ChatId.fromId(message.chat.id),
                     text = """
                         Добро пожаловать, ${message.chat.firstName}!
-                        
                         Я периодически буду присылать прогноз погоды в наш чат :D
+                        
+                        Для получения справочной информации, отправь в сообщении `/help`
                     """.trimIndent()
                 )
                 getCurrentWeather({ currentWeather ->
@@ -71,6 +72,23 @@ class WeatherBot(
                         text = "Не удалось получить данные"
                     )
                 })
+            }
+
+            /*
+            Получение справочной информации
+             */
+            command("help") {
+                val info = """
+                    Доступные команды:
+                    `/start` - запуск бота
+                    `/weather` - поулчение прогноза погоды
+                    `/help` - показать справочную информацию
+                """.trimIndent()
+                bot.sendMessage(
+                    chatId = ChatId.fromId(message.chat.id),
+                    text = info,
+                    parseMode = ParseMode.MARKDOWN
+                )
             }
         }
     }
